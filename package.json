@@ -42,6 +42,7 @@
     "tslint": "5.12.1",
     "typescript": "3.2.4"
   },
+  "license": "MIT",
   "author": {
     "name": "Chris Arnesen",
     "email": "chris.arnesen@gmail.com"
@@ -51,5 +52,8 @@
     "url": "https://github.com/carnesen/bitcoin-config-cli/issues"
   },
   "homepage": "https://github.com/carnesen/bitcoin-config-cli#readme",
-  "license": "MIT"
+  "files": [
+    "src",
+    "lib"
+  ]
 }
