@@ -1,0 +1,49 @@
+{
+  "name": "@carnesen/bitcoin-config-cli",
+  "description": "A Node.js command-line interface (CLI) for bitcoin server software configuration",
+  "private": true,
+  "version": "0.0.0-0",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "build:clean": "rimraf lib && npm run build",
+    "lint": "tslint --project .",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "npm run lint && npm run test:unit && npm run build",
+    "test:unit": "jest",
+    "test:unit:coverage": "npm run test:unit -- --coverage",
+    "test:unit:coverage:watch": "npm run test:unit -- --coverage --watch",
+    "test:unit:watch": "npm run test:unit -- --watch",
+    "preversion": "npm test && npm run build:clean",
+    "postversion": "npm publish"
+  },
+  "dependencies": {
+    "@carnesen/bitcoin-config": "0.0.0-3",
+    "@carnesen/cli": "0.1.2"
+  },
+  "devDependencies": {
+    "@carnesen/tsconfig": "0.1.0",
+    "@carnesen/tslint-config": "0.1.2",
+    "@types/jest": "23.3.13",
+    "@types/node": "10.12.18",
+    "jest": "23.6.0",
+    "ts-jest": "23.10.5",
+    "ts-node": "8.0.1",
+    "tslint": "5.12.1",
+    "typescript": "3.2.4"
+  },
+  "author": {
+    "name": "Chris Arnesen",
+    "email": "chris.arnesen@gmail.com"
+  },
+  "repository": "git://github.com/carnesen/bitcoin-core-cli.git",
+  "bugs": {
+    "url": "https://github.com/carnesen/bitcoin-core-cli/issues"
+  },
+  "homepage": "https://github.com/carnesen/bitcoin-core-cli#readme",
+  "license": "MIT"
+}
