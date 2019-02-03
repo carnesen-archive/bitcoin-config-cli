@@ -1,14 +1,14 @@
 import { testCliThrows } from '@carnesen/cli';
-import { root } from '../root';
+import { bitcoinConfig } from '..';
 
-const rootCliThrows = testCliThrows(root);
+const rootCliThrows = testCliThrows(bitcoinConfig);
 
-describe(root.commandName, () => {
+describe(bitcoinConfig.commandName, () => {
   it('throws Usage if no args are given', async () => {
     expect(await rootCliThrows()).toMatch(/^Usage:/);
   });
 
   it('has 3 subcommands', async () => {
-    expect(root.subcommands.length).toBe(3);
+    expect(bitcoinConfig.subcommands.length).toBe(3);
   });
 });

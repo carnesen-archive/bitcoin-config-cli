@@ -10,9 +10,10 @@ export const read = leaf({
     ...universalOptions,
     format: option({
       typeName: 'string',
+      nullable: false,
       description: 'Format of the output',
-      defaultValue: 'raw',
-      allowedValues: ['raw', 'pretty', 'json'],
+      defaultValue: 'pretty',
+      allowedValues: ['raw', 'json'],
     }),
   },
   action({ conf, format }) {

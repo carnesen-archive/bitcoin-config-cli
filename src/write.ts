@@ -10,19 +10,13 @@ export const write = leaf({
     ...universalOptions,
     json: option({
       typeName: 'json',
+      nullable: false,
       description: 'Bitcoin configuration as a JSON string',
     }),
-    mkdir: option({
-      typeName: 'boolean',
-      description: 'Create the directory if it does not exist',
-    }),
   },
-  action({ conf, json, mkdir }) {
+  action({ conf, json }) {
     const configFilePath = toAbsolute(conf);
-    if (mkdir) {
-      mkdirp.sync(dirname(configFilePath));
-    }
-    const { serializedConfig } = writeConfigFile(configFilePath, json);
-    return serializedConfig;
+    mkdirp.sync(dirname(configFilePath));
+    writeConfigFile(configFilePath, json);
   },
 });
