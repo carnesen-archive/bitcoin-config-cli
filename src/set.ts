@@ -1,4 +1,6 @@
-import { leaf, option, UsageError } from '@carnesen/cli';
+import { dirname } from 'path';
+
+import { leaf, UsageError } from '@carnesen/cli';
 import {
   BITCOIN_CONFIG_OPTIONS,
   readConfigFile,
@@ -6,38 +8,14 @@ import {
   writeConfigFile,
   toAbsolute,
 } from '@carnesen/bitcoin-config';
-import { universalOptions } from './universal-options';
 import mkdirp = require('mkdirp');
-import { dirname } from 'path';
 
-const options: { [optionName: string]: ReturnType<typeof option> } = {};
-Object.entries(BITCOIN_CONFIG_OPTIONS).forEach(([optionName, bitcoinConfigOption]) => {
-  let typeName: Parameters<typeof option>[0]['typeName'];
-  let allowedValues: Parameters<typeof option>[0]['allowedValues'] = undefined;
-  switch (bitcoinConfigOption.typeName) {
-    case 'boolean':
-      typeName = 'string';
-      allowedValues = ['0', '1'];
-      break;
-    case 'string':
-    case 'number':
-    case 'string[]':
-      typeName = bitcoinConfigOption.typeName;
-      break;
-    default:
-      throw new Error(`Unexpected typeName "${bitcoinConfigOption!.typeName}"`);
-  }
-  options[optionName] = option({
-    typeName,
-    allowedValues,
-    description: bitcoinConfigOption.description,
-    nullable: true,
-  });
-});
+import { universalOptions } from './universal-options';
+import { setOptions } from './set-options';
 
 export const set = leaf({
   commandName: 'set',
-  options: { ...options, ...universalOptions },
+  options: { ...setOptions, ...universalOptions },
   action(namedArgs) {
     const passedConfig: any = {};
     Object.entries(namedArgs).forEach(([optionName, optionValue]) => {

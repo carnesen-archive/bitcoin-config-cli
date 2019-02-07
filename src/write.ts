@@ -1,8 +1,8 @@
 import { option, leaf } from '@carnesen/cli';
-import { universalOptions } from './universal-options';
 import { toAbsolute, writeConfigFile } from '@carnesen/bitcoin-config';
 import mkdirp = require('mkdirp');
 import { dirname } from 'path';
+import { universalOptions } from './universal-options';
 
 export const write = leaf({
   commandName: 'write',

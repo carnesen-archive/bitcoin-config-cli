@@ -5,7 +5,7 @@ export const universalOptions = {
   conf: option({
     typeName: 'string',
     nullable: false,
-    description: `Absolute or datadir-relative path of a config file`,
+    description: `Absolute or datadir-relative path of a configuration file`,
     defaultValue: DEFAULT_CONFIG_FILE_NAME,
   }),
 };

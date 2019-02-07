@@ -9,6 +9,6 @@ describe(bitcoinConfig.commandName, () => {
   });
 
   it('has 3 subcommands', async () => {
-    expect(bitcoinConfig.subcommands.length).toBe(3);
+    expect(bitcoinConfig.subcommands.length).toBe(4);
   });
 });
