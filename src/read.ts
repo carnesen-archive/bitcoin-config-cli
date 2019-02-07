@@ -1,11 +1,10 @@
 import { option, leaf } from '@carnesen/cli';
-import { toAbsolute, readConfigFiles } from '@carnesen/bitcoin-config';
-import { readFileSync } from 'fs';
+import { toAbsolute, readConfigFiles, serializeConfig } from '@carnesen/bitcoin-config';
 import { universalOptions } from './universal-options';
 
 export const read = leaf({
   commandName: 'read',
-  description: 'Read the contents of a configuration file',
+  description: 'Read a bitcoin server software configuration',
   options: {
     ...universalOptions,
     format: option({
@@ -13,19 +12,21 @@ export const read = leaf({
       nullable: false,
       description: 'Format of the output',
       defaultValue: 'pretty',
-      allowedValues: ['raw', 'json'],
+      allowedValues: ['json', 'ini'],
     }),
   },
   action({ conf, format }) {
     const configFilePath = toAbsolute(conf);
-    if (format === 'raw') {
-      return readFileSync(configFilePath, { encoding: 'utf8' });
-    }
     const config = readConfigFiles(configFilePath);
-    if (format === 'pretty') {
-      return config;
+    switch (format) {
+      case 'pretty':
+        return config;
+      case 'json':
+        return JSON.stringify(config, null, 2);
+      case 'ini':
+        return serializeConfig(config);
+      default:
+        throw new Error(`Unexpected format "${format}"`);
     }
-    // format === 'json'
-    return JSON.stringify(config, null, 2);
   },
 });

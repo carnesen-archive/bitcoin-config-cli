@@ -6,12 +6,13 @@ import { universalOptions } from './universal-options';
 
 export const write = leaf({
   commandName: 'write',
+  description: 'Write a bitcoin server software configuration',
   options: {
     ...universalOptions,
     json: option({
       typeName: 'json',
       nullable: false,
-      description: 'Bitcoin configuration as a JSON string',
+      description: 'Configuration as a JSON string',
     }),
   },
   action({ conf, json }) {
