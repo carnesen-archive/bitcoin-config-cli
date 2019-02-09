@@ -1,7 +1,7 @@
 {
   "name": "@carnesen/bitcoin-config-cli",
   "description": "A Node.js command-line interface (CLI) for bitcoin server software configuration",
-  "version": "0.0.0-0",
+  "version": "0.0.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
