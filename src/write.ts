@@ -1,7 +1,5 @@
 import { option, leaf } from '@carnesen/cli';
 import { toAbsolute, writeConfigFile } from '@carnesen/bitcoin-config';
-import mkdirp = require('mkdirp');
-import { dirname } from 'path';
 import { universalOptions } from './universal-options';
 
 export const write = leaf({
@@ -17,7 +15,6 @@ export const write = leaf({
   },
   action({ conf, json }) {
     const configFilePath = toAbsolute(conf);
-    mkdirp.sync(dirname(configFilePath));
     writeConfigFile(configFilePath, json);
   },
 });

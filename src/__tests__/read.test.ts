@@ -9,7 +9,7 @@ describe(read.commandName, () => {
   it('reads and prints the contents of file "conf"', async () => {
     const conf = tempy.file();
     writeConfigFile(conf, { daemon: true });
-    expect(await readCli(`--conf ${conf} --format raw`)).toMatch(/^daemon=1/m);
+    expect(await readCli(`--conf ${conf} --format ini`)).toMatch(/^daemon=1/m);
   });
 
   it('parses and serializes the file to json if --format json is passed', async () => {

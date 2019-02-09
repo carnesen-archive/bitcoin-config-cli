@@ -1,44 +1,36 @@
 import { leaf, UsageError } from '@carnesen/cli';
 import {
   BITCOIN_CONFIG_OPTIONS,
-  readConfigFile,
-  SectionedConfig,
-  writeConfigFile,
   toAbsolute,
+  updateConfigFile,
 } from '@carnesen/bitcoin-config';
 import { unsetOptions } from './unset-options';
 import { universalOptions } from './universal-options';
 
+type Delta = { [K in keyof typeof BITCOIN_CONFIG_OPTIONS]?: null };
+
 export const unset = leaf({
   commandName: 'unset',
+  description: 'Unset bitcoin configuration values',
   options: { ...unsetOptions, ...universalOptions },
   action(namedArgs) {
-    const absoluteConf = toAbsolute(namedArgs.conf);
-    let nextConfig: SectionedConfig = {};
-    try {
-      nextConfig = readConfigFile(absoluteConf);
-    } catch (ex) {
-      if (ex.code !== 'ENOENT') {
-        throw ex;
+    const filePath = toAbsolute(namedArgs.conf);
+    const delta: Delta = {};
+    for (const [argName, argValue] of Object.entries(namedArgs)) {
+      const bitcoinOption =
+        BITCOIN_CONFIG_OPTIONS[argName as keyof typeof BITCOIN_CONFIG_OPTIONS];
+      if (!bitcoinOption) {
+        continue;
+      }
+      if (argValue === true) {
+        delta[argName as keyof typeof BITCOIN_CONFIG_OPTIONS] = null;
       }
     }
-    let encounteredConfigArg = false;
-    Object.entries(namedArgs).forEach(([optionName, shouldUnset]) => {
-      const bitcoinConfigOption =
-        BITCOIN_CONFIG_OPTIONS[optionName as keyof typeof BITCOIN_CONFIG_OPTIONS];
-      if (!bitcoinConfigOption) {
-        return;
-      }
-      encounteredConfigArg = true;
-      if (shouldUnset) {
-        delete (nextConfig as any)[optionName];
-      }
-    });
 
-    if (!encounteredConfigArg) {
-      throw new UsageError('Expected one or more configuration values to set');
+    if (Object.keys(delta).length === 0) {
+      throw new UsageError('Expected one or more configuration values to unset');
     }
 
-    writeConfigFile(absoluteConf, nextConfig);
+    updateConfigFile(filePath, delta);
   },
 });

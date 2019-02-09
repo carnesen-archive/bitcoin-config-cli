@@ -24,23 +24,23 @@
     "postversion": "npm publish"
   },
   "dependencies": {
-    "@carnesen/bitcoin-config": "0.0.0",
-    "@carnesen/cli": "0.3.1",
-    "@types/mkdirp": "0.5.2",
-    "mkdirp": "0.5.1"
+    "@carnesen/bitcoin-config": "0.0.1",
+    "@carnesen/cli": "0.3.1"
   },
   "devDependencies": {
     "@carnesen/tsconfig": "0.1.0",
     "@carnesen/tslint-config": "0.1.2",
     "@types/jest": "24.0.0",
-    "@types/node": "10.12.21",
+    "@types/node": "10.12.24",
+    "@types/temp-write": "3.3.0",
     "@types/tempy": "0.2.0",
     "jest": "24.1.0",
+    "temp-write": "3.4.0",
     "tempy": "0.2.1",
     "ts-jest": "23.10.5",
     "ts-node": "8.0.2",
     "tslint": "5.12.1",
-    "typescript": "3.3.1"
+    "typescript": "3.3.3"
   },
   "license": "MIT",
   "author": {
