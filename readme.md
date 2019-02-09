@@ -16,7 +16,7 @@ $ bitcoin-config write --json '{"regtest": true, "daemon": true}'
 ```
 Let's check the contents of the configuration file:
 ```
-$ bitcoin-config read --format raw
+$ bitcoin-config read --format ini
 # This is a bitcoin configuration file written using @carnesen/bitcoin-config
 
 # Run this node on its own independent test network.
@@ -25,7 +25,7 @@ regtest=1
 # Spawn bitcoin as a background process
 daemon=1
 ```
-Looks good! Now suppose later we want to set a configuration value:
+Looks good! Now suppose later we want to update a configuration file with a specific value:
 ```
 $ bitcoin-config set --acceptnonstdtxn 1
 ```
@@ -67,12 +67,10 @@ export const root = branch({
 if (module === require.main) {
   cli(root)();
 }
-
 ```
-
 ## Related
-- [@carnesen/cli](https://github.com/carnesen/cli): A library for building Node.js command-line interfaces
 - [@carnesen/bitcoin-config](https://github.com/carnesen/bitcoin-config): Constants, utilities, and TypeScript types for bitcoin server software configuration with Node.js
+- [@carnesen/cli](https://github.com/carnesen/cli): A library for building Node.js command-line interfaces
 
 ## License
 
